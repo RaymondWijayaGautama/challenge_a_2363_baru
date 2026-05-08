@@ -2,13 +2,15 @@ import 'package:sqflite/sqflite.dart' as sql;
 
 class SQLHelper {
   static Future<void> createTables(sql.Database database) async {
-  
+    // Membuat tabel employees
     await database.execute("""CREATE TABLE employees(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT,
         email TEXT
       )
       """);
+
+    // MEMBUAT TABEL MANAGER (Ini yang sebelumnya kurang)
     await database.execute("""CREATE TABLE manager(
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         name TEXT,
@@ -25,6 +27,8 @@ class SQLHelper {
     });
   }
 
+  // ================= CRUD EMPLOYEE =================
+  // (Typo nama tabel 'employee' diubah jadi 'employees' agar sesuai dengan createTables)
   static Future<int> addEmployee(String name, String email) async {
     final db = await SQLHelper.db();
     final data = {'name': name, 'email': email};
