@@ -24,13 +24,27 @@ class _InputManagerPageState extends State<InputManagerPage> {
   TextEditingController controllerEmployee = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    // Memasukkan nilai awal hanya dipanggil sekali saat halaman dibuka
     if (widget.id != null) {
-      controllerName.text = widget.name!;
-      controllerEmail.text = widget.email!;
-      controllerEmployee.text = widget.employee!;
+      controllerName.text = widget.name ?? '';
+      controllerEmail.text = widget.email ?? '';
+      controllerEmployee.text = widget.employee ?? '';
     }
+  }
 
+  @override
+  void dispose() {
+    // Membersihkan controller untuk mencegah memory leak
+    controllerName.dispose();
+    controllerEmail.dispose();
+    controllerEmployee.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title ?? "INPUT MANAGER"),
